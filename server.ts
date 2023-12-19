@@ -1,7 +1,7 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const sqlite3 = require('sqlite3');
-const axios = require('axios');
+import express, { Request, Response } from 'express';
+import bodyParser from 'body-parser';
+import sqlite3 from 'sqlite3';
+import axios from 'axios';
 
 const app = express();
 const PORT = 3000;
@@ -9,7 +9,7 @@ const db = new sqlite3.Database('formData.db');
 
 const WEBHOOK_URL = 'https://ubuffalo.webhook.office.com/webhookb2/810d040a-ed87-479d-9e72-5b2b121c970e@96464a8a-f8ed-40b1-99e2-5f6b50a20250/IncomingWebhook/139e53ada71442adad3b9c41e557845a/b5fd1f09-3709-4b2e-94b5-516af33606f0';
 
-function sendTeamsNotification(data) {
+function sendTeamsNotification(data: any) {
     const message = {
         "@type": "MessageCard",
         "@context": "https://schema.org/extensions",
@@ -40,7 +40,7 @@ db.serialize(() => {
 });
 
 // Handle form submissions
-app.post('/submit', (req, res) => {
+app.post('/submit', (req: Request, res: Response) => {
     const data = {
         $firstName: req.body.firstName,
         $lastName: req.body.lastName,
